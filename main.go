@@ -71,7 +71,7 @@ func calcHandler(w http.ResponseWriter, r *http.Request) {
 		resp.Error = err.Error()
 	}
 
-	w.Header().Set("Content-type", "application/json")
+	w.Header().Set("Content-type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(resp)
 }
 

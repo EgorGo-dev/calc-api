@@ -26,10 +26,18 @@ go run .
 
 ## Пример запроса
 
+### Git Bash / Linux / macOS
+
 ```bash
 curl -X POST http://localhost:8080/calc \
   -H "Content-Type: application/json" \
   -d '{"a":5,"b":3,"op":"add"}'
+```
+
+### PowerShell
+
+```powershell
+(Invoke-WebRequest -Uri http://localhost:8080/calc -Method Post -Body '{"a":5,"b":3,"op":"add"}' -ContentType "application/json" -UseBasicParsing).Content
 ```
 
 Ответ:
@@ -37,8 +45,6 @@ curl -X POST http://localhost:8080/calc \
 ```json
 {"result":8}
 ```
-
-> 💡 В PowerShell используйте экранирование: `-d "{\"a\":5,\"b\":3,\"op\":\"add\"}"`
 
 ## Операции
 
