@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -89,11 +90,15 @@ func loggingMiddleware(next http.Handler) http.Handler {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/calc", calcHandler)
-
 	handler := loggingMiddleware(mux)
 
-	err := http.ListenAndServe(":8080", handler)
-	if err != nil {
-		log.Fatalf("ошибка %v", err)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("сервер запущен на 0.0.0.0:%s", port)
+	if err := http.ListenAndServe("0.0.0.0:"+port, handler); err != nil {
+		log.Fatalf("ошибка: %v", err)
 	}
 }
