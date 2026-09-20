@@ -6,19 +6,18 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"time"
 )
 
 type CalcRequest struct {
-	A 	int    `json:"a"`
-	B 	int	   `json:"b"`
-	Op 	string `json:"op"`
+	A  int    `json:"a"`
+	B  int    `json:"b"`
+	Op string `json:"op"`
 }
 
 type CalcResponse struct {
-	Result  int    `json:"result"`
-	Error   string `json:"error,omitempty"`
+	Result int    `json:"result"`
+	Error  string `json:"error,omitempty"`
 }
 
 func calculate(a, b int, op string) (int, error) {
@@ -72,7 +71,7 @@ func calcHandler(w http.ResponseWriter, r *http.Request) {
 		resp.Error = err.Error()
 	}
 
-	w.Header().Set("Content-type", "application/json; charset=utf-8")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(resp)
 }
 
@@ -84,7 +83,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 
 		fmt.Printf("<- %s %s (%v)\n", r.Method, r.URL.Path, time.Since(start))
-	}) 
+	})
 }
 
 func main() {
@@ -92,13 +91,8 @@ func main() {
 	mux.HandleFunc("/calc", calcHandler)
 	handler := loggingMiddleware(mux)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	log.Printf("сервер запущен на 0.0.0.0:%s", port)
-	if err := http.ListenAndServe("0.0.0.0:"+port, handler); err != nil {
+	fmt.Println("сервер запущен на :8080")
+	if err := http.ListenAndServe(":8080", handler); err != nil {
 		log.Fatalf("ошибка: %v", err)
 	}
 }
