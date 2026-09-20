@@ -70,4 +70,4 @@ curl -X POST http://localhost:8080/calc \
 
 ## 📝 Лицензия
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
