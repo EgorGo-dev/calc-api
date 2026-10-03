@@ -2,6 +2,7 @@
 
 > REST API калькулятор на Go. Принимает JSON, считает в горутине, логирует запросы через middleware.
 
+[![Go CI](https://github.com/EgorGo-dev/calc-api/actions/workflows/go.yml/badge.svg)](https://github.com/EgorGo-dev/calc-api/actions/workflows/go.yml)
 [![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev/)
 [![HTTP](https://img.shields.io/badge/HTTP-net%2Fhttp-005571?style=for-the-badge)](https://pkg.go.dev/net/http)
 [![JSON](https://img.shields.io/badge/JSON-encoding%2Fjson-000000?style=for-the-badge&logo=json&logoColor=white)](https://pkg.go.dev/encoding/json)
@@ -15,6 +16,7 @@
 - 🪵 **Middleware** для логирования запросов
 - ⚡ **Вычисления в горутине** через каналы и `select`
 - 🛡️ **Обработка ошибок** (деление на ноль, неизвестная операция, плохой JSON)
+- 🧪 **Покрытие тестами** (unit + HTTP через `httptest`)
 
 ## 🛠 Стек
 
@@ -24,6 +26,7 @@
 | 📚 Стандартная библиотека | `net/http`, `encoding/json`, `errors`, `log`, `time` |
 | ⚙️ Конкурентность | горутины, каналы, `select` |
 | 🧩 Архитектура | middleware |
+| 🧪 Тестирование | `testing`, `net/http/httptest` |
 
 ## 🚀 Запуск
 
@@ -32,6 +35,12 @@ go run .
 ```
 
 Сервер запустится на **http://localhost:8080**
+
+## 🧪 Тесты
+
+```bash
+go test -v
+```
 
 ## 📡 Пример запроса
 
@@ -67,6 +76,8 @@ curl -X POST http://localhost:8080/calc \
 ## 📂 Исходный код
 
 👉 [**main.go**](./main.go) — весь код проекта в одном файле: обработчики, middleware, горутины и логика калькулятора.
+
+👉 [**main_test.go**](./main_test.go) — тесты для функции `calculate` и HTTP-обработчика.
 
 ## 📝 Лицензия
 
