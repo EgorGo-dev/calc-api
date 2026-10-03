@@ -2,7 +2,6 @@
 
 > REST API калькулятор на Go. Принимает JSON, считает в горутине, логирует запросы через middleware.
 
-[![Go CI](https://github.com/EgorGo-dev/calc-api/actions/workflows/go.yml/badge.svg)](https://github.com/EgorGo-dev/calc-api/actions/workflows/go.yml)
 [![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev/)
 [![HTTP](https://img.shields.io/badge/HTTP-net%2Fhttp-005571?style=for-the-badge)](https://pkg.go.dev/net/http)
 [![JSON](https://img.shields.io/badge/JSON-encoding%2Fjson-000000?style=for-the-badge&logo=json&logoColor=white)](https://pkg.go.dev/encoding/json)
