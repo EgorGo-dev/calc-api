@@ -82,6 +82,10 @@ func TestCalcHandler_DivisionByZero(t *testing.T) {
 
 	calcHandler(w, req)
 
+	if w.Code != http.StatusBadRequest {
+		t.Errorf("ожидался статус 400, получен %d", w.Code)
+	}
+
 	var resp CalcResponse
 	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
 		t.Fatalf("не удалось распарсить ответ: %v", err)
@@ -111,5 +115,19 @@ func TestCalcHandler_WrongMethod(t *testing.T) {
 
 	if w.Code != http.StatusMethodNotAllowed {
 		t.Errorf("ожидался статус 405, получен %d", w.Code)
+	}
+}
+
+func TestHealthHandler(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/health", nil)
+	w := httptest.NewRecorder()
+
+	healthHandler(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Fatalf("ожидался статус 200, получен %d", w.Code)
+	}
+	if !strings.Contains(w.Body.String(), "ok") {
+		t.Errorf("в ответе нет \"ok\": %q", w.Body.String())
 	}
 }

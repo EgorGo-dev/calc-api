@@ -72,7 +72,17 @@ func calcHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+
+	if resp.Error != "" {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
 	json.NewEncoder(w).Encode(resp)
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`{"status":"ok"}`))
 }
 
 func loggingMiddleware(next http.Handler) http.Handler {
@@ -89,6 +99,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/calc", calcHandler)
+	mux.HandleFunc("/health", healthHandler)
 	handler := loggingMiddleware(mux)
 
 	fmt.Println("сервер запущен на :8080")
